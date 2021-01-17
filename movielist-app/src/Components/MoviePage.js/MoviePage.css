@@ -1,0 +1,53 @@
+html, body, #root, #root>.movie_page_bg{
+    min-height: 100vh;
+}
+.bold {
+    font-weight: bold;
+}
+.black_background {
+    background-color: rgba(0,0,0,0.5);
+    min-height: 100%;
+    min-width: ;width: 100%
+}
+.movie_meta {
+    font-family: Arial;
+    text-align:center;
+    margin: auto;
+    width: 50%;
+    color: #fff;
+    
+    
+    text-align: center;
+    z-index: 1;
+}
+
+.movie_page_title {
+    font-size: 2em;
+
+}
+.movie_page_summary {
+    font-size: 1.2em;
+
+}
+
+.movie_mini_info {
+    margin: 1em;
+    font-size: 1.05em;
+}
+.ratings_area {
+    display: flex;
+    flex-direction: row;
+}
+.each_ratings {
+    flex: 1;
+    text-align: center;
+}
+.movie_page_bg {
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
