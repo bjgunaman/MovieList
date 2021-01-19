@@ -1,5 +1,9 @@
 # MovieList
 
+## Running the App  
+To Run the app you will first need to download the dependencies, you can do this by going to the `movielist-app` directory and running   
+`npm install`  
+Then run `npm start` in the `movielist-app` directory and this should run the app.  
 ## Sign in  
 First Log In to your Google account.  
 
