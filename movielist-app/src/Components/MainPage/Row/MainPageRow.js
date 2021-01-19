@@ -16,7 +16,7 @@ const MainPageRow = (props) => {
         const fetchData = async () => {
             const request = await axios.get(props.fetchUrl);
             setMovies(request.data.results);
-            // console.log(request.data.results);
+            
            
             
             return request;

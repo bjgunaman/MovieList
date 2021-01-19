@@ -31,21 +31,21 @@ const ProfilePage = (props) => {
     }, []);
     useEffect(() => {
         const fetchDataFirebase = async () => {
-            console.log("here");
+            
             if(isSignedIn) {
                 const docRef = db.collection("accounts").doc(`${app.auth().currentUser.uid}`);
                 setProfilePic(app.auth().currentUser.photoURL);
                 setDisplayName(app.auth().currentUser.displayName);
                 docRef.get().then((doc) => {
                     if (doc.exists) {
-                        console.log("Document data:", doc.data());
+                        
                         setfavMovieTitles(doc.data().favoriteMovieTitles);
                         setfavMoviesId(doc.data().favoriteMoviesId);
                         setfavMoviesImgs(doc.data().favoriteMovieImgs);
                         setGenres(doc.data().favoriteGenres);
                         setfavMovieVotes(doc.data().favoriteMovieVotes);
                     } else {
-                        console.log("No such document!");
+                        
                         docRef.set({
                             favoriteMoviesId:[],
                             favoriteGenres: [],
@@ -101,7 +101,6 @@ const ProfilePage = (props) => {
             result.push(row)
             
         }
-        console.log(result.length)
         return result;
     }
     const renderTableData = (startIndex, length) => {
@@ -151,15 +150,11 @@ const ProfilePage = (props) => {
         setfavMovieTitles([...favMovieTitles , favoriteMovieTitle]);
         setfavMovieVotes([...favMovieVotes, favoriteMovieVotes]);
         
-        console.log("adding2")
-        console.log(favMoviesId);
+        
 
     }
     
     const removeFavoriteMovie = (favoriteMovieId, favoriteMovieImg, favoriteMovieTitle, favoriteMovieVotes) => {
-        
-        
-        // console.log(favMoviesId.filter(id => id == favoriteMovieId))
         setfavMoviesId(favMoviesId.filter(id => id != favoriteMovieId));
         setfavMoviesImgs(favMovieImgs.filter(img => img != favoriteMovieImg));
         setfavMovieTitles(favMovieTitles.filter(title => title != favoriteMovieTitle));
@@ -177,7 +172,7 @@ const ProfilePage = (props) => {
         
         addFavoriteMovie(favoriteMovieId, favoriteMovieImg, favoriteMovieTitle, favoriteMovieVotes) ;
         
-        // console.log(favMoviesId);
+        
     }
     const firebaseSignout = () => {
         app.auth().signOut()
@@ -186,7 +181,7 @@ const ProfilePage = (props) => {
             })
             .catch((error) => {
                 console.log(error);
-            // An error happened.
+            
           } );
     }
     

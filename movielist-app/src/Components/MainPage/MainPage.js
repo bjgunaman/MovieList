@@ -22,7 +22,7 @@ import './MainPage.css';
 
 const MainPage = () => {
 
-    const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
+    const [isSignedIn, setIsSignedIn] = useState(false); 
 
     const [favMoviesId, setfavMoviesId] = useState([]);
     const [favGenres, setGenres] = useState([]);
@@ -31,37 +31,32 @@ const MainPage = () => {
     const [favMovieVotes, setfavMovieVotes] = useState([]);
 
 
-    
-
-    // Listen to the Firebase Auth state and set the local state.
     useEffect(() => {
-        // const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-        //                                     setIsSignedIn(!!user);
-        //                                 });
+       
         const unregisterAuthObserver = app.auth().onAuthStateChanged(user => {
                                                 setIsSignedIn(!!user);
                                             });
 
         
         
-        return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+        return () => unregisterAuthObserver(); 
     }, []);
 
     useEffect(() => {
         const fetchDataFirebase = async () => {
-            console.log("here");
+            
             if (isSignedIn) {
                 const docRef = db.collection("accounts").doc(`${app.auth().currentUser.uid}`);
                 docRef.get().then((doc) => {
                     if (doc.exists) {
-                        console.log("Document data:", doc.data());
+                        
                         setfavMovieTitles(doc.data().favoriteMovieTitles);
                         setfavMoviesId(doc.data().favoriteMoviesId);
                         setfavMoviesImgs(doc.data().favoriteMovieImgs);
                         setGenres(doc.data().favoriteGenres);
                         setfavMovieVotes(doc.data().favoriteMovieVotes);
                     } else {
-                        console.log("No such document!");
+                       
                         docRef.set({
                             favoriteMoviesId:[],
                             favoriteGenres: [],
@@ -114,15 +109,11 @@ const MainPage = () => {
         setfavMovieTitles([...favMovieTitles , favoriteMovieTitle]);
         setfavMovieVotes([...favMovieVotes, favoriteMovieVotes]);
         
-        console.log("adding2")
-        console.log(favMoviesId);
 
     }
     
     const removeFavoriteMovie = (favoriteMovieId, favoriteMovieImg, favoriteMovieTitle, favoriteMovieVotes) => {
         
-        
-        // console.log(favMoviesId.filter(id => id == favoriteMovieId))
         setfavMoviesId(favMoviesId.filter(id => id != favoriteMovieId));
         setfavMoviesImgs(favMovieImgs.filter(img => img != favoriteMovieImg));
         setfavMovieTitles(favMovieTitles.filter(title => title != favoriteMovieTitle));
@@ -140,7 +131,7 @@ const MainPage = () => {
         
         addFavoriteMovie(movieInfo.id, movieInfo.backdrop_path, movieInfo.title, movieInfo.vote_average) ;
         
-        // console.log(favMoviesId);
+        
     }
 
     const checkIfMovieFavorited = (movieInfo) => {
