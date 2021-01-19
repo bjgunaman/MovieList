@@ -44,7 +44,9 @@ const MainPageRow = (props) => {
               movie.backdrop_path !== null && (
                 <div className="item" key={movies[index].id} >
                     <div className="movie_image">
-                        <img src={`${baseImgUrl}${movies[index].backdrop_path}`} alt={movies[index].title} onClick={() => goToMoviePage(index)}/>
+                        <Link to={`/movie_page?movie_id=${movies[index].id}}`}>
+                            <img src={`${baseImgUrl}${movies[index].backdrop_path}`} alt={movies[index].title}/>  
+                        </Link>
                     </div>
                     
                     <div className="movie_subinfo">

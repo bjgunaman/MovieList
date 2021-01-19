@@ -6,7 +6,7 @@ import MainPageRow from './Row/MainPageRow';
 import {requestsByGenre} from '../../API/requests';
 import firebase from "firebase";
 import "firebase/auth";
-// import { firebaseConfig } from '../../API/firebase';
+import { firebaseConfig } from '../../API/firebase';
 import {
     FirebaseAuthProvider,
     FirebaseAuthConsumer,
@@ -35,9 +35,13 @@ const MainPage = () => {
 
     // Listen to the Firebase Auth state and set the local state.
     useEffect(() => {
-        const unregisterAuthObserver = app.onAuthStateChanged(user => {
-                                            setIsSignedIn(!!user);
-                                        });
+        // const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+        //                                     setIsSignedIn(!!user);
+        //                                 });
+        const unregisterAuthObserver = app.auth().onAuthStateChanged(user => {
+                                                setIsSignedIn(!!user);
+                                            });
+
         
         
         return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
@@ -47,7 +51,7 @@ const MainPage = () => {
         const fetchDataFirebase = async () => {
             console.log("here");
             if (isSignedIn) {
-                const docRef = db.collection("accounts").doc(`${firebase.auth().currentUser.uid}`);
+                const docRef = db.collection("accounts").doc(`${app.auth().currentUser.uid}`);
                 docRef.get().then((doc) => {
                     if (doc.exists) {
                         console.log("Document data:", doc.data());
@@ -77,7 +81,7 @@ const MainPage = () => {
     useEffect(() => {
         const editFavoriteMovieToFirestore = () => {
             if (isSignedIn) {
-                db.collection("accounts").doc(`${firebase.auth().currentUser.uid}`).set({
+                db.collection("accounts").doc(`${app.auth().currentUser.uid}`).set({
                     favoriteMoviesId:favMoviesId,
                     favoriteGenres: favGenres,
                     favoriteMovieImgs: favMovieImgs,
@@ -89,9 +93,9 @@ const MainPage = () => {
         editFavoriteMovieToFirestore();
     },[favMoviesId, favMovieVotes, favMovieTitles, favMovieImgs]);
 
-    !firebase.apps.length ?  firebase.initializeApp(firebaseConfig) : firebase.app();
+    // !firebase.apps.length ?  firebase.initializeApp(firebaseConfig) : firebase.app();
 
-    const db = firebase.firestore();
+    const db = app.firestore();
     const uiConfig = {
         signInFlow: 'popup',
         
@@ -152,10 +156,10 @@ const MainPage = () => {
 
     if (!isSignedIn) {
         return (
-            <div>
-                <h1>My App</h1>
-                <p>Please sign-in:</p>
-                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            <div className="sign_in_page">
+                <h1 className="header2 text-white">MovieList</h1>
+                <div className="sign_in text-white">Please sign-in:</div>
+                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={app.auth()} />
             </div>
         );
     } else {
@@ -168,6 +172,14 @@ const MainPage = () => {
                     <MainPageRow title="Comedy" fetchUrl={requestsByGenre.getComedy} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
                     <MainPageRow title="Mystery" fetchUrl={requestsByGenre.getMystery} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
                     <MainPageRow title="Romance" fetchUrl={requestsByGenre.getRomance}  addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="Adventure" fetchUrl={requestsByGenre.getAdventure} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="Animation" fetchUrl={requestsByGenre.getAnimation} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="Crime" fetchUrl={requestsByGenre.getCrime} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="Thriller" fetchUrl={requestsByGenre.getThriller} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="Documentary" fetchUrl={requestsByGenre.getDocumentary} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="Science Fiction" fetchUrl={requestsByGenre.getScienceFiction} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    <MainPageRow title="History" fetchUrl={requestsByGenre.getHistory} addingOrRemovingMovie={addingOrRemovingMovie} checkIfMovieFavorited={checkIfMovieFavorited}/>
+                    
                 </div>       
         );
     }

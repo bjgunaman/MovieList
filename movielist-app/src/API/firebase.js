@@ -60,7 +60,7 @@ class Firebase {
 
 }
 
-export default new Firebase();
+
 export default !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
 
 

@@ -57,7 +57,7 @@ const MoviePage = () => {
             <div className="black_background">
                 <div className="movie_meta">
                     <div className="movie_page_title">
-                        <h1>{movieInfo.title}</h1>
+                        <h1 className="movie_title">{movieInfo.title}</h1>
                     </div>
                     <br />
                     

@@ -1,7 +1,40 @@
+
+
 .profile_picture {
     border-radius: 50%;
+    background-color: green;
+    height: 5rem;
+    width: 5rem;
+    margin: auto;
+    margin-top: 2rem; 
 }
 
+.profile_img {
+    border-radius: 50%;
+}
 .display_name {
     font-weight: 700;
+    margin: auto;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.fav_movie_list {
+    margin: auto;
+}
+
+.favorites {
+    margin: auto;
+
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+.signout_button {
+    position: absolute;
+    top: 3rem;
+    right: 7rem;
+
 }
